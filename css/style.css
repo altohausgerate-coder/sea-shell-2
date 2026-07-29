@@ -1568,3 +1568,13 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
 .footer__brand{display:inline-flex;align-items:center;gap:.6rem;justify-content:center}
 .footer__brand-icon{width:34px;height:34px;color:var(--cream)}
 .footer__brand-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;letter-spacing:.02em;color:var(--cream)}
+
+/* ===== REAL LOGO IMAGE (stacked shell + wordmark) ===== */
+.brand__logo{height:60px;width:auto;transition:height .35s ease;display:block}
+.header.scrolled .brand__logo{height:50px}
+@media(max-width:768px){
+  .brand__logo{height:48px}
+}
+@media(max-width:400px){
+  .brand__logo{height:42px}
+}
