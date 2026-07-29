@@ -1532,3 +1532,36 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
   .hero__actions{flex-direction:column;width:100%;gap:.5rem}
   .hero__actions .btn{width:100%;justify-content:center}
 }
+
+/* ===== TEXT WORDMARK LOGO (crisp at all sizes) ===== */
+.brand--text{display:inline-flex;align-items:center;gap:.6rem;text-decoration:none}
+.brand__icon{width:34px;height:34px;color:var(--navy);flex-shrink:0;transition:width .35s ease,height .35s ease}
+.brand__wordmark{display:flex;flex-direction:column;line-height:1}
+.brand__name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;letter-spacing:.02em;color:var(--navy);line-height:1}
+.brand__tag{font-family:'Jost',sans-serif;font-size:.5rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+.header.scrolled .brand__icon{width:30px;height:30px}
+.header.scrolled .brand__name{font-size:1.35rem}
+
+/* ===== SCROLL PROGRESS — thin, on-brand ===== */
+.scroll-progress{height:2px;background:var(--teal);opacity:.55}
+
+/* ===== MOBILE HEADER — solid & clear ===== */
+@media(max-width:768px){
+  .header,.header.scrolled{background:#f6f2ea;backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(28,26,22,.08);opacity:1;transform:none;pointer-events:auto}
+  .brand__name{font-size:1.3rem}
+  .brand__tag{font-size:.46rem;letter-spacing:.22em}
+  .brand__icon{width:30px;height:30px}
+  /* Prominent burger */
+  .burger{display:flex;padding:8px;border:1px solid rgba(28,26,22,.15);border-radius:8px}
+  .burger span{width:22px;height:2px;background:var(--navy)}
+  .scroll-progress{height:2px}
+}
+@media(max-width:400px){
+  .brand__tag{display:none}
+  .brand__name{font-size:1.2rem}
+}
+
+/* ===== FOOTER TEXT WORDMARK (white on navy) ===== */
+.footer__brand{display:inline-flex;align-items:center;gap:.6rem;justify-content:center}
+.footer__brand-icon{width:34px;height:34px;color:var(--cream)}
+.footer__brand-name{font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:600;letter-spacing:.02em;color:var(--cream)}

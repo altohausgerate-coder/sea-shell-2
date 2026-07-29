@@ -36,9 +36,18 @@
   <!-- ===== HEADER ===== -->
   <header class="header" id="header">
     <div class="header__left">
-      <a href="#home" class="brand" data-cursor="hover">
-      <img src="assets/logo.png" alt="Seashell logo" class="brand__logo" />
-    </a>
+      <a href="#home" class="brand brand--text" data-cursor="hover" aria-label="Seashell — by Aydan Zohrabqizi">
+        <svg class="brand__icon" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M50 12 C32 12 18 26 18 46 C18 66 36 88 50 88 C64 88 82 66 82 46 C82 26 68 12 50 12 Z"
+                fill="none" stroke="currentColor" stroke-width="3"/>
+          <path d="M50 16 L50 86 M39 19 L28 80 M61 19 L72 80 M30 27 L20 70 M70 27 L80 70"
+                fill="none" stroke="currentColor" stroke-width="2" opacity="0.85"/>
+        </svg>
+        <span class="brand__wordmark">
+          <span class="brand__name">seashell</span>
+          <span class="brand__tag">by Aydan Zohrabqizi</span>
+        </span>
+      </a>
     </div>
 
     <nav class="nav" id="nav">
@@ -363,7 +372,7 @@
           </div>
         </div>
         <div class="loc-milestone__card">
-          <img src="assets/logo.png" alt="Seashell" />
+          <svg viewBox="0 0 100 100" width="16" height="16" aria-hidden="true" style="color:var(--navy);flex-shrink:0"><path d="M50 12 C32 12 18 26 18 46 C18 66 36 88 50 88 C64 88 82 66 82 46 C82 26 68 12 50 12 Z" fill="none" stroke="currentColor" stroke-width="4"/><path d="M50 16 L50 86 M39 19 L28 80 M61 19 L72 80" fill="none" stroke="currentColor" stroke-width="3" opacity="0.85"/></svg>
           <span>Seashell Studio</span>
         </div>
       </div>
@@ -394,7 +403,13 @@
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
     <div class="footer__top">
-      <img src="assets/logo.png" alt="Seashell" class="footer__logo" />
+      <span class="footer__brand">
+        <svg class="footer__brand-icon" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M50 12 C32 12 18 26 18 46 C18 66 36 88 50 88 C64 88 82 66 82 46 C82 26 68 12 50 12 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+          <path d="M50 16 L50 86 M39 19 L28 80 M61 19 L72 80 M30 27 L20 70 M70 27 L80 70" fill="none" stroke="currentColor" stroke-width="2" opacity="0.85"/>
+        </svg>
+        <span class="footer__brand-name">seashell</span>
+      </span>
       <p class="footer__tag" data-i18n="footer.tag">Handmade · Baku, Azerbaijan · Ships Worldwide.</p>
     </div>
     <div class="footer__links">
