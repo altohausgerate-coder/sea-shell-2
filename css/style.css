@@ -1578,3 +1578,13 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
 @media(max-width:400px){
   .brand__logo{height:42px}
 }
+
+/* ===== LOGO SIZE BUMP (header bigger) ===== */
+.brand__logo{height:74px}
+.header.scrolled .brand__logo{height:60px}
+@media(max-width:768px){ .brand__logo{height:56px} }
+@media(max-width:400px){ .brand__logo{height:50px} }
+
+/* ===== FOOTER real logo (white version) ===== */
+.footer__brand{display:none}
+.footer__logo-img{height:88px;width:auto;display:block;margin:0 auto}
