@@ -1,7 +1,8 @@
-# OS / editor junk
+# Unused raw media (not referenced by any page)
+assets/*.mp4
+assets/ig/
+
+# OS / editor
 Thumbs.db
-Desktop.ini
 .DS_Store
-*.log
-.vscode/
-.idea/
+node_modules/
