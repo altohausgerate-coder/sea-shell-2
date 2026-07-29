@@ -51,13 +51,19 @@
   /* ---------- MOBILE NAV ---------- */
   const burger = document.getElementById("burger");
   const nav = document.getElementById("nav");
-  burger.addEventListener("click", () => {
-    burger.classList.toggle("open");
-    nav.classList.toggle("open");
+  const closeNav = () => { burger.classList.remove("open"); nav.classList.remove("open"); document.body.style.overflow = ""; };
+  burger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = nav.classList.toggle("open");
+    burger.classList.toggle("open", open);
+    document.body.style.overflow = open ? "hidden" : "";
   });
-  nav.querySelectorAll("a").forEach(a =>
-    a.addEventListener("click", () => { burger.classList.remove("open"); nav.classList.remove("open"); })
-  );
+  nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
+  /* tap outside / Escape closes */
+  document.addEventListener("click", (e) => {
+    if (nav.classList.contains("open") && !nav.contains(e.target) && !burger.contains(e.target)) closeNav();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(); });
 
   /* ---------- LANGUAGE ---------- */
   const lang = document.getElementById("lang");

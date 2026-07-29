@@ -718,3 +718,40 @@
   .sh-trust        { grid-template-columns: 1fr }
   .sh-trust__item  { border-right: none; border-bottom: 1px solid var(--sh-border) }
 }
+
+/* ============================================================
+   SHOP MOBILE FIXES
+   ============================================================ */
+@media(max-width:768px){
+  /* Hide the announce bar on mobile (it wrapped to 2 lines and overlapped
+     the burger). Header sits at the very top instead. */
+  .sh-announce{display:none}
+  /* Remove backdrop-filter: it makes .header a containing block and
+     breaks the position:fixed nav drawer (menu cramped at top). */
+  .shop-page .header,.shop-page .header.scrolled{top:0;background:#f6f2ea;backdrop-filter:none}
+  /* Logo sizing on shop matches home */
+  .shop-page .brand__logo{height:52px}
+}
+@media(max-width:640px){
+  /* Keep clean 2-col product grid on phones (not 1-col giant cards) */
+  .sh-product-grid{grid-template-columns:1fr 1fr;gap:.75rem}
+  .sh-colls__grid{grid-template-columns:1fr 1fr;gap:.75rem}
+  .sh-card__name,.product__name{font-size:.8rem}
+  .sh-card__cat,.product__label{font-size:.55rem}
+  /* Hero badge: reposition so it doesn't sit as a black block */
+  .sh-hero__badge{left:1rem;bottom:1rem;padding:.55rem .8rem}
+  /* Section head not overlapped by cart FAB */
+  .sh-custom-strip{margin-bottom:4.5rem}
+}
+@media(max-width:420px){
+  /* Override the earlier 1-col rules — keep 2 columns */
+  .sh-product-grid{grid-template-columns:1fr 1fr}
+  .sh-colls__grid{grid-template-columns:1fr 1fr}
+  .sh-trust{grid-template-columns:1fr 1fr}
+  .sh-trust__item{border-bottom:1px solid var(--sh-border)}
+}
+/* Cart FAB slightly smaller on phones so it doesn't cover content */
+@media(max-width:560px){
+  .shop-page .cart-fab{padding:.6rem 1rem;font-size:.66rem;bottom:1.2rem;left:1.2rem}
+  .shop-page .wa-float{width:50px;height:50px;bottom:1.2rem;right:1.2rem}
+}
