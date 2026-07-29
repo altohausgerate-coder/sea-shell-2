@@ -1,7 +1,7 @@
 /* ===== Seashell — translations (EN / AZ / RU) ===== */
 const I18N = {
   en: {
-    "nav.home":"Home","nav.story":"Story","nav.collections":"Collections","nav.gallery":"Gallery",
+    "nav.home":"Home","nav.about":"About","nav.story":"Story","nav.collections":"Collections","nav.gallery":"Gallery",
     "nav.process":"Process","nav.contact":"Contact","nav.order":"Order",
     "nav.shop":"Shop","nav.reels":"Reels","nav.location":"Location",
     "reels.eyebrow":"@seashellazerbaijan","reels.title":"Watch it come alive",
@@ -62,7 +62,7 @@ const I18N = {
     "footer.tag":"Ocean-based handmade art from Azerbaijan.","footer.rights":"All rights reserved."
   },
   az: {
-    "nav.home":"Ana səhifə","nav.story":"Hekayə","nav.collections":"Kolleksiyalar","nav.gallery":"Qalereya",
+    "nav.home":"Ana səhifə","nav.about":"Haqqımızda","nav.story":"Hekayə","nav.collections":"Kolleksiyalar","nav.gallery":"Qalereya",
     "nav.process":"Proses","nav.contact":"Əlaqə","nav.order":"Sifariş",
     "nav.shop":"Mağaza","nav.reels":"Videolar","nav.location":"Ünvan",
     "reels.eyebrow":"@seashellazerbaijan","reels.title":"Canlı izləyin",
@@ -123,7 +123,7 @@ const I18N = {
     "footer.tag":"Azərbaycandan okean əsaslı əl işi sənət.","footer.rights":"Bütün hüquqlar qorunur."
   },
   ru: {
-    "nav.home":"Главная","nav.story":"История","nav.collections":"Коллекции","nav.gallery":"Галерея",
+    "nav.home":"Главная","nav.about":"О нас","nav.story":"История","nav.collections":"Коллекции","nav.gallery":"Галерея",
     "nav.process":"Процесс","nav.contact":"Контакты","nav.order":"Заказать",
     "nav.shop":"Магазин","nav.reels":"Видео","nav.location":"Адрес",
     "reels.eyebrow":"@seashellazerbaijan","reels.title":"Смотрите вживую",

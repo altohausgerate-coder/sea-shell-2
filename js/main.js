@@ -34,6 +34,7 @@
     // active link
     let current = "";
     for (const s of sections) {
+      if (s.offsetParent === null) continue;
       if (y >= s.offsetTop - 200) current = s.id;
     }
     navLinks.forEach(l => l.classList.toggle("active", l.getAttribute("href") === "#" + current));
