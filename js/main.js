@@ -89,12 +89,26 @@
   applyLang(saved);
 
   /* ---------- REVEAL ON SCROLL ---------- */
+  const revealEls = document.querySelectorAll(".reveal, .reveal-img");
   const io = new IntersectionObserver((entries) => {
     entries.forEach(en => {
       if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
     });
-  }, { threshold: 0.14 });
-  document.querySelectorAll(".reveal, .reveal-img").forEach(el => io.observe(el));
+  }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
+  revealEls.forEach(el => io.observe(el));
+
+  /* Safety net: reveal anything already in/above the viewport (fast scroll / mobile) */
+  function revealVisible() {
+    const vh = window.innerHeight;
+    revealEls.forEach(el => {
+      if (el.classList.contains("in")) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < vh * 0.92) { el.classList.add("in"); io.unobserve(el); }
+    });
+  }
+  window.addEventListener("scroll", revealVisible, { passive: true });
+  window.addEventListener("load", revealVisible);
+  revealVisible();
 
   /* ---------- COUNT-UP STATS ---------- */
   const counters = document.querySelectorAll("[data-count]");
