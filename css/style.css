@@ -1514,8 +1514,10 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
 
 /* ===== MOBILE HEADER + FONT FIXES ===== */
 @media(max-width:768px){
-  /* Header always visible on mobile so burger is reachable at top */
-  .header{opacity:1;transform:none;pointer-events:auto;background:rgba(243,240,233,.92);backdrop-filter:blur(12px);padding:.6rem var(--gutter)}
+  /* Header always visible on mobile so burger is reachable at top.
+     NOTE: no backdrop-filter/transform here — they would make .header a
+     containing block and break the position:fixed nav drawer. */
+  .header{opacity:1;transform:none;pointer-events:auto;background:#f6f2ea;padding:.6rem var(--gutter)}
   .header__right{gap:.6rem}
   .brand__logo{height:40px}
   /* Hero — smaller, tighter on phones */
@@ -1547,7 +1549,7 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
 
 /* ===== MOBILE HEADER — solid & clear ===== */
 @media(max-width:768px){
-  .header,.header.scrolled{background:#f6f2ea;backdrop-filter:blur(10px);box-shadow:0 1px 0 rgba(28,26,22,.08);opacity:1;transform:none;pointer-events:auto}
+  .header,.header.scrolled{background:#f6f2ea;box-shadow:0 1px 0 rgba(28,26,22,.08);opacity:1;transform:none;pointer-events:auto}
   .brand__name{font-size:1.3rem}
   .brand__tag{font-size:.46rem;letter-spacing:.22em}
   .brand__icon{width:30px;height:30px}
@@ -1557,8 +1559,9 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
   .scroll-progress{height:2px}
 }
 @media(max-width:400px){
-  .brand__tag{display:none}
-  .brand__name{font-size:1.2rem}
+  .brand__tag{display:block;font-size:.42rem;letter-spacing:.18em}
+  .brand__name{font-size:1.15rem}
+  .brand__icon{width:26px;height:26px}
 }
 
 /* ===== FOOTER TEXT WORDMARK (white on navy) ===== */
