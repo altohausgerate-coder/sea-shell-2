@@ -755,3 +755,24 @@
   .shop-page .cart-fab{padding:.6rem 1rem;font-size:.66rem;bottom:1.2rem;left:1.2rem}
   .shop-page .wa-float{width:50px;height:50px;bottom:1.2rem;right:1.2rem}
 }
+
+/* ===== SHOP SEARCH ===== */
+.shop-search{
+  padding:.65rem 1rem;
+  font-size:.85rem;
+  font-family:'Jost',sans-serif;
+  border:1px solid var(--sh-border);
+  border-radius:6px;
+  background:var(--sh-bg);
+  color:var(--sh-dark);
+  outline:none;
+  transition:border-color .2s;
+}
+.shop-search:focus{border-color:var(--sh-dark)}
+.shop-search::placeholder{color:rgba(34,32,25,.5)}
+@media(max-width:768px){
+  .filter-tabs{flex-wrap:wrap;gap:1rem}
+  .filter-tabs__left{flex:1 1 100%;gap:.4rem;justify-content:flex-start}
+  .shop-search{flex:1 1 auto;min-width:140px}
+  .sort-wrap{flex:1 1 auto}
+}

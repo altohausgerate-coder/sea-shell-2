@@ -59,6 +59,8 @@
     document.body.style.overflow = open ? "hidden" : "";
   });
   nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
+  const navClose = document.getElementById("navClose");
+  if (navClose) navClose.addEventListener("click", closeNav);
   /* tap outside / Escape closes */
   document.addEventListener("click", (e) => {
     if (nav.classList.contains("open") && !nav.contains(e.target) && !burger.contains(e.target)) closeNav();

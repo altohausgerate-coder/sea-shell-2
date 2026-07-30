@@ -32,6 +32,10 @@
     </a>
   </div>
   <nav class="nav" id="nav">
+    <button class="nav__close" id="navClose" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+      <span>Close</span>
+    </button>
     <a href="index.html"          class="nav__link">Home</a>
     <a href="shop.html"           class="nav__link active">Shop</a>
     <a href="index.html#location" class="nav__link">Location</a>
@@ -202,6 +206,7 @@
       <button class="ftab" data-category="mosaic">Mosaics</button>
       <button class="ftab" data-category="gift">Gifts</button>
     </div>
+    <input type="search" id="shopSearch" class="shop-search" placeholder="Search pieces..." aria-label="Search products" />
     <div class="sort-wrap">
       <label for="sortSelect">Sort by</label>
       <select class="sort-select" id="sortSelect">

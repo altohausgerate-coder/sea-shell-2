@@ -1663,3 +1663,35 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
   /* Keep language selector reachable & above drawer when open */
   .header__right{z-index:1001;position:relative}
 }
+
+/* ============================================================
+   COMPACT MOBILE MENU (overrides earlier oversized version)
+   ============================================================ */
+.nav__close{display:none}
+@media(max-width:768px){
+  .nav{
+    width:min(74vw,300px);
+    padding:1rem 1.6rem 2rem;
+    justify-content:flex-start;
+    gap:0;
+  }
+  .nav::before{display:none}
+  /* Close button row at top of drawer */
+  .nav__close{
+    display:flex;align-items:center;gap:.5rem;
+    align-self:flex-end;
+    background:none;border:none;cursor:pointer;
+    color:rgba(243,240,233,.7);
+    font-family:'Jost',sans-serif;font-size:.62rem;
+    letter-spacing:.2em;text-transform:uppercase;
+    padding:.5rem 0 1.2rem;margin-bottom:.4rem;
+  }
+  .nav__close svg{color:var(--cream)}
+  .nav__close:active{color:var(--cream)}
+  /* Compact links */
+  .nav__link{
+    font-size:1.15rem;
+    padding:.85rem 0;
+    letter-spacing:.02em;
+  }
+}
