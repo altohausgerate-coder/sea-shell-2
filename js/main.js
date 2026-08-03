@@ -455,185 +455,179 @@
     io.observe(stage);
   })();
 
-  /* ---------- LOCATION ROADMAP ---------- */
-  const locRoadmap = document.getElementById("locRoadmap");
-  if (locRoadmap) {
-    const locObs = new IntersectionObserver(entries => {
-      if (!entries[0].isIntersecting) return;
-      locObs.disconnect();
-      locRoadmap.classList.add("in-view");
-      // Path draw
-      const locPath = document.getElementById("locPath");
-      if (locPath) {
-        const len = 900;
-        locPath.setAttribute("stroke-dasharray", len);
-        locPath.setAttribute("stroke-dashoffset", len);
-        setTimeout(() => {
-          locPath.style.transition = "stroke-dashoffset 1.8s cubic-bezier(.4,0,.2,1)";
-          locPath.setAttribute("stroke-dashoffset", "0");
-        }, 300);
-      }
-    }, { threshold: 0.05, rootMargin: "0px 0px -50px 0px" });
-    locObs.observe(locRoadmap);
-  }
-
-  /* ---------- FAN CAROUSEL ---------- */
+  /* ---------- PREMIUM LOCATION MAP ---------- */
   (function () {
-    const container = document.getElementById("fanContainer");
-    const dotsEl    = document.getElementById("fanDots");
-    const prevBtn   = document.getElementById("fanPrev");
-    const nextBtn   = document.getElementById("fanNext");
-    if (!container || typeof gsap === "undefined") return;
+    const section = document.getElementById("location");
+    const locRoadmap = document.getElementById("locRoadmap");
+    if (!section || !locRoadmap) return;
 
-    const cards = [...container.querySelectorAll(".fan-card")];
-    const TOTAL = cards.length;
-    const VISIBLE = 7;
-    const HALF = 3;
-    let center = HALF;
-    let animating = false;
-    let entered = false;
+    const paths = [...locRoadmap.querySelectorAll(".loc-route")];
+    const labels = [...locRoadmap.querySelectorAll(".loc-map-label")];
+    const nodes = [...locRoadmap.querySelectorAll(".loc-node")];
+    const copyEls = [...locRoadmap.querySelectorAll(".loc-copy .eyebrow, .loc-copy h2, .loc-copy p")];
+    const shell = locRoadmap.querySelector(".loc-shell");
+    const pin = locRoadmap.querySelector(".loc-pin");
+    const card = locRoadmap.querySelector(".loc-info-card");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const FAN = [
-      { rot:-21, scale:.776, x:-30, y:7.3, z:1 },
-      { rot:-14, scale:.850, x:-22, y:4.0, z:2 },
-      { rot:-7,  scale:.935, x:-11, y:1.3, z:3 },
-      { rot:0,   scale:1.0,  x:0,   y:0.0, z:10},
-      { rot:7,   scale:.935, x:11,  y:1.3, z:3 },
-      { rot:14,  scale:.850, x:22,  y:4.0, z:2 },
-      { rot:21,  scale:.776, x:30,  y:7.3, z:1 },
-    ];
-    const mult = () => Math.min(1, window.innerWidth / 1024);
-
-    function getMap(c) {
-      const m = new Map();
-      for (let s = 0; s < VISIBLE; s++) {
-        m.set(((c + s - HALF) % TOTAL + TOTAL) % TOTAL, s);
-      }
-      return m;
-    }
-
-    // Build dots
-    cards.forEach((_, i) => {
-      const d = document.createElement("span");
-      d.className = "fan-dot" + (i === center ? " active" : "");
-      d.addEventListener("click", () => goTo(i));
-      dotsEl.appendChild(d);
+    paths.forEach(path => {
+      const len = path.getTotalLength ? path.getTotalLength() : 1200;
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
     });
 
-    function updateDots() {
-      [...dotsEl.children].forEach((d, i) => d.classList.toggle("active", i === center));
+    function markInView() {
+      section.classList.add("in-view");
+      locRoadmap.classList.add("in-view");
     }
 
-    function layout(map, dir, isFirst) {
-      const m = mult();
-      cards.forEach((card, idx) => {
-        const slot = map.get(idx);
-        if (slot !== undefined) {
-          const f = FAN[slot];
-          const target = { x: f.x * m * 10, y: f.y * m * 5, rotation: f.rot, scale: f.scale, opacity: 1, zIndex: f.z };
-          if (isFirst) {
-            gsap.set(card, { x: 0, y: 120, rotation: 0, scale: .4, opacity: 0 });
-            gsap.to(card, { ...target, duration: 1.2, ease: "elastic.out(1,.78)", delay: .2 + slot * .06 });
-          } else {
-            gsap.to(card, { ...target, duration: .5, ease: "power2.out", onComplete: () => { animating = false; } });
-          }
-        } else {
-          const exitX = dir === "right" ? -200 : 200;
-          gsap.to(card, { x: exitX, opacity: 0, scale: .4, rotation: dir === "right" ? -20 : 20, duration: .35, ease: "power2.in", zIndex: 0 });
-        }
+    function revealWithoutGsap() {
+      markInView();
+      paths.forEach((path, index) => {
+        path.style.transition = `stroke-dashoffset 1.6s cubic-bezier(.16,1,.3,1) ${index * 160}ms`;
+        path.style.strokeDashoffset = "0";
       });
     }
 
-    function goTo(idx) {
-      if (animating || idx === center) return;
-      animating = true;
-      const dir = ((idx - center + TOTAL) % TOTAL < TOTAL / 2) ? "right" : "left";
-      center = idx;
-      layout(getMap(center), dir, false);
-      updateDots();
-      setTimeout(() => { animating = false; }, 600);
+    if (reduceMotion) {
+      revealWithoutGsap();
+      return;
     }
 
-    function cycle(dir) {
-      if (animating) return;
-      animating = true;
-      center = dir === "right" ? (center + 1) % TOTAL : (center - 1 + TOTAL) % TOTAL;
-      layout(getMap(center), dir, false);
-      updateDots();
-      setTimeout(() => { animating = false; }, 600);
-    }
+    if (typeof gsap !== "undefined") {
+      if (typeof ScrollTrigger !== "undefined") {
+        gsap.registerPlugin(ScrollTrigger);
+      }
 
-    prevBtn && prevBtn.addEventListener("click", () => cycle("left"));
-    nextBtn && nextBtn.addEventListener("click", () => cycle("right"));
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power3.out" },
+        onStart: markInView
+      });
 
-    // Touch swipe
-    let touchX = 0;
-    container.addEventListener("touchstart", e => { touchX = e.touches[0].clientX; }, { passive: true });
-    container.addEventListener("touchend",   e => {
-      const dx = e.changedTouches[0].clientX - touchX;
-      if (Math.abs(dx) > 40) cycle(dx < 0 ? "right" : "left");
-    }, { passive: true });
+      tl.from(section, { autoAlpha: 0, y: 38, duration: .9 }, 0)
+        .from(copyEls, { autoAlpha: 0, y: 24, stagger: .1, duration: .72 }, .12)
+        .from(shell, { autoAlpha: 0, scale: .72, y: 30, rotateX: 10, duration: 1.1, ease: "back.out(1.45)" }, .26)
+        .to(paths, { strokeDashoffset: 0, duration: 1.55, stagger: .18, ease: "power2.out" }, .48)
+        .from(pin, { autoAlpha: 0, y: -92, scale: .78, duration: .82, ease: "bounce.out" }, .86)
+        .from(nodes, { autoAlpha: 0, scale: .25, transformOrigin: "50% 50%", stagger: .09, duration: .45 }, .96)
+        .from(labels, { autoAlpha: 0, y: 18, scale: .96, stagger: .13, duration: .58 }, 1.08)
+        .from(card, { x: -54, y: 18, duration: .86 }, .72);
 
-    // Hover spread
-    cards.forEach((card, idx) => {
-      card.addEventListener("mouseenter", () => {
-        if (animating) return;
-        const map = getMap(center);
-        const hovSlot = map.get(idx);
-        if (hovSlot === undefined) return;
-        const m = mult();
-        cards.forEach((c, ci) => {
-          const s = map.get(ci);
-          if (s === undefined) return;
-          const f = FAN[s];
-          let tx = f.x * m * 10, ty = f.y * m * 5, tr = f.rot, ts = f.scale;
-          const dist = s - hovSlot;
-          if (s === hovSlot) { ty -= 20; ts *= 1.08; }
-          else { tx += dist > 0 ? 14 * m : -14 * m; tr += dist > 0 ? 2 : -2; }
-          gsap.to(c, { x: tx, y: ty, rotation: tr, scale: ts, duration: .4, ease: "power2.out", overwrite: "auto" });
+      if (typeof ScrollTrigger !== "undefined") {
+        ScrollTrigger.create({
+          trigger: section,
+          start: "top 74%",
+          once: true,
+          onEnter: () => tl.play()
         });
-      });
-    });
-
-    container.addEventListener("mouseleave", () => {
-      if (animating) return;
-      const map = getMap(center);
-      const m = mult();
-      cards.forEach((c, ci) => {
-        const s = map.get(ci);
-        if (s === undefined) return;
-        const f = FAN[s];
-        gsap.to(c, { x: f.x*m*10, y: f.y*m*5, rotation: f.rot, scale: f.scale, duration: .4, ease: "power2.out", overwrite: "auto" });
-      });
-    });
-
-    // Initial entrance when section visible
-    const fanIO = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && !entered) {
-        entered = true;
-        fanIO.disconnect();
-        layout(getMap(center), null, true);
+      } else {
+        const locObs = new IntersectionObserver(entries => {
+          if (!entries[0].isIntersecting) return;
+          locObs.disconnect();
+          tl.play();
+        }, { threshold: 0.12, rootMargin: "0px 0px -70px 0px" });
+        locObs.observe(section);
       }
-    }, { threshold: .2 });
-    const fanSection = document.getElementById("shop");
-    if (fanSection) fanIO.observe(fanSection);
+    } else {
+      const locObs = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        locObs.disconnect();
+        revealWithoutGsap();
+      }, { threshold: 0.12, rootMargin: "0px 0px -70px 0px" });
+      locObs.observe(section);
+    }
   })();
 
-  /* ---------- INSTAGRAM EMBEDS — lazy load ---------- */
-  const reelsSection = document.getElementById("reels");
-  if (reelsSection) {
-    const igIO = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        igIO.disconnect();
-        const s = document.createElement("script");
-        s.src = "//www.instagram.com/embed.js";
-        s.async = true;
-        s.onload = () => { if (window.instgrm) window.instgrm.Embeds.process(); };
-        document.body.appendChild(s);
-      }
-    }, { rootMargin: "200px" });
-    igIO.observe(reelsSection);
-  }
+  /* ---------- CIRCULAR 3D GALLERY ---------- */
+  (function () {
+    const section = document.querySelector(".circular-section");
+    const scene = document.getElementById("circularGalleryScene");
+    if (!section || !scene) return;
+
+    const cards = [...scene.querySelectorAll(".circular-card")];
+    const total = cards.length;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let rotation = 0;
+    let targetRotation = 0;
+    let isScrolling = false;
+    let scrollTimer = null;
+    let raf = null;
+
+    function radius() {
+      const vw = window.innerWidth;
+      if (vw < 560) return 360;
+      if (vw < 900) return 470;
+      return Math.min(680, Math.max(520, vw * 0.44));
+    }
+
+    function layout() {
+      const r = radius();
+      const angle = 360 / total;
+      cards.forEach((card, index) => {
+        card.style.transform = `rotateY(${index * angle}deg) translateZ(${r}px)`;
+      });
+    }
+
+    function updateOpacity() {
+      const angle = 360 / total;
+      cards.forEach((card, index) => {
+        const raw = (index * angle + rotation) % 360;
+        const normalized = Math.abs(raw > 180 ? 360 - raw : raw);
+        const opacity = Math.max(.24, 1 - normalized / 160);
+        card.style.opacity = opacity.toFixed(3);
+      });
+    }
+
+    function sectionProgress() {
+      const rect = section.getBoundingClientRect();
+      const travel = section.offsetHeight - window.innerHeight;
+      if (travel <= 0) return 0;
+      return Math.min(1, Math.max(0, -rect.top / travel));
+    }
+
+    function onScroll() {
+      isScrolling = true;
+      targetRotation = sectionProgress() * 720;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(() => { isScrolling = false; }, 160);
+    }
+
+    function tick() {
+      if (!reduceMotion && !isScrolling) targetRotation += .026;
+      rotation += (targetRotation - rotation) * .08;
+      scene.style.transform = `rotateY(${rotation}deg)`;
+      updateOpacity();
+      raf = requestAnimationFrame(tick);
+    }
+
+    layout();
+    updateOpacity();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", layout);
+    onScroll();
+    tick();
+
+    const galleryIO = new IntersectionObserver(entries => {
+      if (!entries[0].isIntersecting) return;
+      cards.forEach((card, index) => {
+        card.animate(
+          [
+            { opacity: 0, transform: `${card.style.transform} scale(.82)` },
+            { opacity: card.style.opacity || 1, transform: `${card.style.transform} scale(1)` }
+          ],
+          { duration: 780, delay: index * 35, easing: "cubic-bezier(.16,1,.3,1)", fill: "backwards" }
+        );
+      });
+      galleryIO.disconnect();
+    }, { threshold: .18 });
+    galleryIO.observe(section);
+
+    window.addEventListener("pagehide", () => {
+      if (raf) cancelAnimationFrame(raf);
+      clearTimeout(scrollTimer);
+    });
+  })();
 
   /* ---------- PRODUCT MODAL ---------- */
   const pmodal        = document.getElementById("pmodal");
