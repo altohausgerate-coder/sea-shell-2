@@ -14,13 +14,20 @@
   /* ---------- MOBILE NAV ---------- */
   const burger = document.getElementById("burger");
   const nav    = document.getElementById("nav");
-  burger.addEventListener("click", () => {
-    burger.classList.toggle("open");
-    nav.classList.toggle("open");
+  const closeNav = () => { burger.classList.remove("open"); nav.classList.remove("open"); document.body.style.overflow = ""; };
+  burger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = nav.classList.toggle("open");
+    burger.classList.toggle("open", open);
+    document.body.style.overflow = open ? "hidden" : "";
   });
-  nav.querySelectorAll("a").forEach(a =>
-    a.addEventListener("click", () => { burger.classList.remove("open"); nav.classList.remove("open"); })
-  );
+  nav.querySelectorAll("a").forEach(a => a.addEventListener("click", closeNav));
+  const navClose = document.getElementById("navClose");
+  if (navClose) navClose.addEventListener("click", closeNav);
+  document.addEventListener("click", (e) => {
+    if (nav.classList.contains("open") && !nav.contains(e.target) && !burger.contains(e.target)) closeNav();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeNav(); });
 
   /* ---------- LANG ---------- */
   const lang    = document.getElementById("lang");
@@ -104,6 +111,7 @@
   let activePrice = "all";
   let activeLead  = "all";
   let activeSort  = "featured";
+  let searchTerm  = "";
 
   function leadGroup(days) {
     if (days <= 5)  return "fast";
@@ -111,11 +119,20 @@
     return "custom";
   }
 
+  const shopSearch = document.getElementById("shopSearch");
+  if (shopSearch) {
+    shopSearch.addEventListener("input", (e) => {
+      searchTerm = e.target.value.toLowerCase().trim();
+      applyFilters();
+    });
+  }
+
   function applyFilters() {
     let visible = allProducts.filter(p => {
       const cat   = p.dataset.category;
       const price = +p.dataset.price;
       const lead  = leadGroup(+p.dataset.leadDays || 10);
+      const name  = (p.dataset.name || "").toLowerCase();
 
       const catOk   = activeCat === "all"   || cat === activeCat;
       const priceOk = activePrice === "all" ||
@@ -123,8 +140,9 @@
         (activePrice === "100-200" && price >= 100 && price <= 200) ||
         (activePrice === "200-999" && price > 200);
       const leadOk  = activeLead === "all"  || lead === activeLead;
+      const searchOk = !searchTerm || name.includes(searchTerm);
 
-      return catOk && priceOk && leadOk;
+      return catOk && priceOk && leadOk && searchOk;
     });
 
     // Sort
