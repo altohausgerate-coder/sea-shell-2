@@ -156,6 +156,50 @@
     }
   }
 
+  /* ---------- ATELIER IMAGE SEQUENCE ---------- */
+  const atelier = document.querySelector("[data-atelier]");
+  if (atelier) {
+    const frame = atelier.querySelector(".atelier__frame");
+    const image = atelier.querySelector("#atelierImage");
+    const caption = atelier.querySelector("#atelierCaption");
+    const switches = [...atelier.querySelectorAll(".atelier__switch")];
+
+    const selectStage = (button) => {
+      if (button.classList.contains("is-active")) return;
+      const nextSrc = button.dataset.atelierImage;
+      if (!nextSrc) return;
+
+      switches.forEach((item) => {
+        const active = item === button;
+        item.classList.toggle("is-active", active);
+        item.setAttribute("aria-selected", String(active));
+      });
+      frame.classList.add("is-switching");
+
+      const nextImage = new Image();
+      const showStage = () => {
+        image.src = nextSrc;
+        image.alt = button.dataset.atelierAlt || "Seashell studio process";
+        caption.textContent = button.dataset.atelierCaption || "Made with care in the Seashell atelier.";
+        requestAnimationFrame(() => frame.classList.remove("is-switching"));
+      };
+      nextImage.addEventListener("load", showStage, { once: true });
+      nextImage.addEventListener("error", showStage, { once: true });
+      nextImage.src = nextSrc;
+    };
+
+    switches.forEach((button, index) => {
+      button.addEventListener("click", () => selectStage(button));
+      button.addEventListener("keydown", (event) => {
+        if (!["ArrowDown", "ArrowRight", "ArrowUp", "ArrowLeft", "Home", "End"].includes(event.key)) return;
+        event.preventDefault();
+        const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? switches.length - 1 : (index + (event.key === "ArrowDown" || event.key === "ArrowRight" ? 1 : -1) + switches.length) % switches.length;
+        switches[nextIndex].focus();
+        selectStage(switches[nextIndex]);
+      });
+    });
+  }
+
   /* ---------- GALLERY FILTER ---------- */
   const filters = document.querySelectorAll(".filter");
   const cards = document.querySelectorAll(".card");
@@ -476,6 +520,7 @@
     const shell = locRoadmap.querySelector(".loc-shell");
     const pin = locRoadmap.querySelector(".loc-pin");
     const card = locRoadmap.querySelector(".loc-info-card");
+    const cardItems = card ? [...card.querySelectorAll(".loc-info-card__list li, .loc-info-card__btns .btn")] : [];
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     paths.forEach(path => {
@@ -520,7 +565,8 @@
         .from(pin, { autoAlpha: 0, y: -92, scale: .78, duration: .82, ease: "bounce.out" }, .86)
         .from(nodes, { autoAlpha: 0, scale: .25, transformOrigin: "50% 50%", stagger: .09, duration: .45 }, .96)
         .from(labels, { autoAlpha: 0, y: 18, scale: .96, stagger: .13, duration: .58 }, 1.08)
-        .from(card, { x: -54, y: 18, duration: .86 }, .72);
+        .from(card, { autoAlpha: 0, scale: .72, y: 30, transformOrigin: "50% 50%", duration: .78, ease: "back.out(1.25)" }, 1.32)
+        .from(cardItems, { autoAlpha: 0, y: 13, stagger: .1, duration: .42 }, 1.52);
 
       if (typeof ScrollTrigger !== "undefined") {
         ScrollTrigger.create({
@@ -529,14 +575,14 @@
           once: true,
           onEnter: () => tl.play()
         });
-      } else {
-        const locObs = new IntersectionObserver(entries => {
-          if (!entries[0].isIntersecting) return;
-          locObs.disconnect();
-          tl.play();
-        }, { threshold: 0.12, rootMargin: "0px 0px -70px 0px" });
-        locObs.observe(section);
       }
+
+      const locObs = new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting) return;
+        locObs.disconnect();
+        tl.play();
+      }, { threshold: 0.12, rootMargin: "0px 0px -70px 0px" });
+      locObs.observe(section);
     } else {
       const locObs = new IntersectionObserver(entries => {
         if (!entries[0].isIntersecting) return;

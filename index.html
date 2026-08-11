@@ -296,49 +296,35 @@
     </div>
   </section>
 
-  <!-- ===== REELS / INSTAGRAM ===== -->
+  <!-- ===== ATELIER EXPERIENCE ===== -->
   <section class="reels reels--atelier" id="reels">
     <div class="reels__layout">
       <div class="reels__copy">
-        <span class="eyebrow reveal" data-i18n="reels.eyebrow">Watch it come alive</span>
-        <h2 class="reveal" data-i18n="reels.title">Designed by hand</h2>
-        <p class="reveal reels__intro" data-i18n="reels.sub">Aydan Zöhrabqızı tərəfindən hər kompozisiya fərdi hazırlanır — qabıqların seçilməsindən son parıltıya qədər.</p>
+        <span class="eyebrow reveal">Inside the atelier</span>
+        <h2 class="reveal">Made slowly, made once.</h2>
+        <p class="reveal reels__intro">From the first shell to the final polish, every composition finds its own balance by hand.</p>
         <div class="reels__actions reveal">
           <a class="btn" href="https://wa.me/994508249023?text=Salam%2C%20Seashell%20%C3%BC%C3%A7%C3%BCn%20f%C9%99rdi%20sifari%C5%9F%20verm%C9%99k%20ist%C9%99yir%C9%99m." target="_blank" rel="noopener" data-i18n="reels.order" data-cursor="hover">Start custom order</a>
-          <a class="btn btn--ghost" href="https://www.instagram.com/seashellazerbaijan/" target="_blank" rel="noopener" data-i18n="reels.follow" data-cursor="hover">View more on Instagram</a>
         </div>
       </div>
 
-      <div class="reels__studio">
-        <article class="reel reel--feature reveal">
-          <div class="reel__meta"><span>01</span><b data-i18n="reels.card1">Signature process</b></div>
-          <div class="reel__embed">
-            <iframe class="reel__iframe" title="Seashell signature process on Instagram" src="https://www.instagram.com/reel/DZnWjocNZPl/embed/captioned/" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-            <a class="reel__fallback" href="https://www.instagram.com/reel/DZnWjocNZPl/" target="_blank" rel="noopener">Open on Instagram</a>
-          </div>
-        </article>
-        <div class="reels__minis">
-          <article class="reel reel--mini reveal">
-            <div class="reel__meta"><span>02</span><b data-i18n="reels.card2">Mirror composition</b></div>
-            <div class="reel__embed">
-              <iframe class="reel__iframe" title="Seashell mirror composition on Instagram" src="https://www.instagram.com/reel/DZ5U4UFtO4c/embed/captioned/" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-              <a class="reel__fallback" href="https://www.instagram.com/reel/DZ5U4UFtO4c/" target="_blank" rel="noopener">Open on Instagram</a>
-            </div>
-          </article>
-          <article class="reel reel--mini reveal">
-            <div class="reel__meta"><span>03</span><b data-i18n="reels.card3">Final reveal</b></div>
-            <div class="reel__embed">
-              <iframe class="reel__iframe" title="Seashell final reveal on Instagram" src="https://www.instagram.com/p/DZ-AtgHNGyP/embed/captioned/" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe>
-              <a class="reel__fallback" href="https://www.instagram.com/p/DZ-AtgHNGyP/" target="_blank" rel="noopener">Open on Instagram</a>
-            </div>
-          </article>
+      <div class="atelier reveal" data-atelier>
+        <figure class="atelier__frame">
+          <img id="atelierImage" src="assets/atelier-process-v2.png" alt="Hands finishing a seashell mirror by hand" width="1024" height="1280" />
+          <figcaption id="atelierCaption" class="atelier__caption">The finish begins with a patient eye.</figcaption>
+        </figure>
+        <div class="atelier__switches" role="tablist" aria-label="Making stages">
+          <button class="atelier__switch is-active" type="button" role="tab" aria-selected="true" data-atelier-image="assets/atelier-process-v2.png" data-atelier-alt="Hands finishing a seashell mirror by hand" data-atelier-caption="The finish begins with a patient eye.">
+            <span class="atelier__switch-index">I</span><span><b>Set the rhythm</b><small>Each shell is chosen for its own shape.</small></span>
+          </button>
+          <button class="atelier__switch" type="button" role="tab" aria-selected="false" data-atelier-image="assets/handmade9.webp" data-atelier-alt="White shell mosaic artwork" data-atelier-caption="A composition grows one gesture at a time.">
+            <span class="atelier__switch-index">II</span><span><b>Build the composition</b><small>Texture is arranged, adjusted and refined.</small></span>
+          </button>
+          <button class="atelier__switch" type="button" role="tab" aria-selected="false" data-atelier-image="assets/sculpt-mirror.jpeg" data-atelier-alt="Finished sculptural seashell mirror" data-atelier-caption="The final piece carries the calm of the coast.">
+            <span class="atelier__switch-index">III</span><span><b>Reveal the piece</b><small>Finished for the room it will call home.</small></span>
+          </button>
         </div>
       </div>
-    </div>
-    <div class="reels__steps reveal" aria-label="Custom order process">
-      <span><i>01</i><b data-i18n="reels.step1">Choose the mood</b></span>
-      <span><i>02</i><b data-i18n="reels.step2">Designed by hand</b></span>
-      <span><i>03</i><b data-i18n="reels.step3">Finished piece</b></span>
     </div>
   </section>
 
@@ -444,31 +430,16 @@
         <span class="eyebrow">Find us</span>
         <h2 id="locationTitle">Visit the Seashell studio</h2>
         <p>Come see the pieces in person, discuss a custom order, or just say hello.</p>
+        <ul class="loc-contact-lines">
+          <li>Xətai r., Xocalı pr. 32, Baku</li>
+          <li><a href="tel:+994508249023">+994 50 824 90 23</a></li>
+          <li>Every day · 10:00 – 20:00</li>
+        </ul>
 
-        <div class="loc-info-card">
-          <ul class="loc-info-card__list">
-            <li>
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2"/></svg>
-              <span>Xətai r., Xocalı pr. 32, Baku</span>
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5c0 9 6 15 15 15v-4l-4-2-2 2a12 12 0 01-5-5l2-2-2-4H4z"/></svg>
-              <a href="tel:+994508249023">+994 50 824 90 23</a>
-            </li>
-            <li>
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-              <span>Every day · 10:00 – 20:00</span>
-            </li>
-          </ul>
-          <div class="loc-info-card__btns">
-            <a href="https://www.google.com/maps/search/?api=1&query=X%C9%99tai%20Residence%20Xocal%C4%B1%20prospekti%2032%20Baku" target="_blank" rel="noopener" class="btn btn--sm">Get directions</a>
-            <a href="https://wa.me/994508249023" target="_blank" rel="noopener" class="btn btn--sm btn--ghost">WhatsApp</a>
-          </div>
-        </div>
       </div>
 
-      <div class="loc-map-field" aria-hidden="true">
-        <svg class="loc-map-svg" viewBox="0 0 1200 680" preserveAspectRatio="none">
+      <div class="loc-map-field">
+        <svg class="loc-map-svg" viewBox="0 0 1200 680" preserveAspectRatio="none" aria-hidden="true">
           <defs>
             <linearGradient id="locRouteGold" x1="0" x2="1" y1="0" y2="1">
               <stop offset="0%" stop-color="#c9a66b"/>
@@ -490,6 +461,13 @@
         <div class="loc-shell" aria-hidden="true">
           <div class="loc-shell__inner">
             <img class="loc-shell__art" src="assets/location-shell-center.png" alt="" loading="lazy" />
+          </div>
+        </div>
+
+        <div class="loc-info-card" aria-label="Studio actions">
+          <div class="loc-info-card__btns">
+            <a href="https://www.google.com/maps/search/?api=1&query=X%C9%99tai%20Residence%20Xocal%C4%B1%20prospekti%2032%20Baku" target="_blank" rel="noopener" class="btn btn--sm">Get directions</a>
+            <a href="https://wa.me/994508249023" target="_blank" rel="noopener" class="btn btn--sm btn--ghost">WhatsApp</a>
           </div>
         </div>
 

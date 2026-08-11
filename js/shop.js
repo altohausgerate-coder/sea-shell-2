@@ -5,12 +5,6 @@
   const yr = document.getElementById("year");
   if (yr) yr.textContent = new Date().getFullYear();
 
-  /* ---------- HEADER ---------- */
-  const header = document.getElementById("header");
-  window.addEventListener("scroll", () => {
-    header.classList.toggle("scrolled", window.scrollY > 10);
-  }, { passive: true });
-
   /* ---------- MOBILE NAV ---------- */
   const burger = document.getElementById("burger");
   const nav    = document.getElementById("nav");
@@ -60,18 +54,6 @@
   }, { threshold: 0.5 });
   document.querySelectorAll("[data-count]").forEach(c => cio.observe(c));
 
-  /* ---------- STORY PARALLAX ---------- */
-  const storyParallax = document.querySelector(".story__parallax");
-  function storyScroll() {
-    if (!storyParallax) return;
-    const wrap = storyParallax.parentElement;
-    const rect = wrap.getBoundingClientRect();
-    const center = (rect.top + rect.height / 2 - window.innerHeight / 2);
-    storyParallax.style.transform = `translateY(${center * 0.07}px)`;
-  }
-  window.addEventListener("scroll", storyScroll, { passive: true });
-  storyScroll();
-
   /* ---------- FILTER SIDEBAR TOGGLE (mobile) ---------- */
   const filterToggle = document.getElementById("filterToggle");
   const sidebar      = document.getElementById("shopSidebar");
@@ -119,13 +101,14 @@
     return "custom";
   }
 
-  const shopSearch = document.getElementById("shopSearch");
-  if (shopSearch) {
+  const shopSearches = [...document.querySelectorAll(".shop-search")];
+  shopSearches.forEach(shopSearch => {
     shopSearch.addEventListener("input", (e) => {
       searchTerm = e.target.value.toLowerCase().trim();
+      shopSearches.forEach(input => { if (input !== e.target) input.value = e.target.value; });
       applyFilters();
     });
-  }
+  });
 
   function applyFilters() {
     let visible = allProducts.filter(p => {
@@ -151,8 +134,8 @@
     if (activeSort === "lead-asc")   visible.sort((a,b) => (+a.dataset.leadDays||10) - (+b.dataset.leadDays||10));
 
     // Show/hide
-    allProducts.forEach(p => p.style.display = "none");
-    visible.forEach(p => { p.style.display = ""; shopGrid.appendChild(p); });
+    allProducts.forEach(p => { p.hidden = true; });
+    visible.forEach(p => { p.hidden = false; shopGrid.appendChild(p); });
 
     if (resultCount) resultCount.textContent = visible.length;
     if (shopEmpty)   shopEmpty.style.display = visible.length ? "none" : "block";
@@ -200,6 +183,8 @@
     document.querySelectorAll(".scat").forEach(b => b.classList.remove("is-active"));
     document.querySelectorAll(".scat[data-category='all'], .scat[data-price='all'], .scat[data-lead='all']").forEach(b => b.classList.add("is-active"));
     if (sortSelect) sortSelect.value = "featured";
+    shopSearches.forEach(input => { input.value = ""; });
+    searchTerm = "";
     applyFilters();
   });
 
@@ -219,6 +204,16 @@
   const closeBtn = document.getElementById("cartClose");
   const orderBtn = document.getElementById("cartOrder");
   const noteEl   = document.getElementById("cartNote");
+
+  const intro = document.querySelector(".shop-intro");
+  if (intro && fab) {
+    const cartVisibility = new IntersectionObserver(entries => {
+      fab.classList.toggle("cart-fab--visible", !entries[0].isIntersecting && cartQtyTotal() > 0);
+    }, { threshold: .25 });
+    cartVisibility.observe(intro);
+  } else if (fab && cartQtyTotal() > 0) {
+    fab.classList.add("cart-fab--visible");
+  }
 
   function saveCart() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e) {} }
   function cartQtyTotal()   { return Object.values(cart).reduce((a,i) => a+i.qty, 0); }
@@ -271,6 +266,7 @@
     else cart[p.id] = { name:p.name, price:p.price, img:p.img, qty:1 };
     renderCart();
     syncCardUI(p.id);
+    fab.classList.add("cart-fab--visible");
     fab.classList.remove("bump"); void fab.offsetWidth; fab.classList.add("bump");
   }
 
@@ -329,7 +325,7 @@
     const note = noteEl && noteEl.value.trim();
     const ref  = "SS-" + Date.now().toString(36).toUpperCase().slice(-5);
     let txt = `Hello Seashell! 🐚%0A%0AOrder ref: ${ref}%0A%0A*Items:*%0A`;
-    keys.forEach(id => { const i=cart[id]; txt+=`• ${encodeURIComponent(i.name)} × ${i.qty} — from $${i.qty*i.price}%0A`; });
+    keys.forEach(id => { const i=cart[id]; txt+=`• ${encodeURIComponent(i.name)} × ${i.qty} - from $${i.qty*i.price}%0A`; });
     txt += `%0A*Estimated from: $${cartPriceTotal()}*`;
     if (note) txt += `%0A%0ANote: ${encodeURIComponent(note)}`;
     txt += `%0A%0AName:%0ACountry / City:%0ADelivery preference:`;
@@ -361,9 +357,9 @@
     pmodalName.textContent  = d.name;
     pmodalPrice.textContent = "$" + d.price;
     pmodalDesc.textContent  = d.desc || "";
-    pmodalMat.textContent   = d.material || "—";
+    pmodalMat.textContent   = d.material || "-";
     pmodalSizes.textContent = (d.sizes||"").replace(/\|/g," · ");
-    pmodalLead.textContent  = d.lead || "—";
+    pmodalLead.textContent  = d.lead || "-";
     pmodalWA.onclick = () => {
       window.open(`https://wa.me/994508249023?text=${encodeURIComponent(`Hello Seashell! 🐚\nI'd like to order: ${d.name}\nPrice: from $${d.price}\n\nName:\nCountry / City:\nSize preference:\nColour preference:`)}`, "_blank");
     };
