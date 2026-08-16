@@ -1038,3 +1038,48 @@
   transform: translateY(0);
 }
 .shop-page .wa-float { display: none; }
+
+/* ============================================================
+   SHOP MOBILE POLISH — small phone improvements
+   ============================================================ */
+
+/* Hero buttons: stack on very small phones */
+@media(max-width:480px){
+  .sh-hero__actions{flex-direction:column;align-items:stretch;gap:.65rem}
+  .sh-btn-primary,.sh-btn-wa{justify-content:center;text-align:center;padding:.9rem 1.6rem}
+}
+
+/* Trust bar: compact on phones */
+@media(max-width:480px){
+  .sh-trust__item{padding:1rem 1.1rem;gap:.65rem}
+  .sh-trust__item b{font-size:.75rem}
+  .sh-trust__item span{font-size:.62rem}
+  .sh-trust__icon{width:36px;height:36px}
+}
+
+/* Shop intro: better padding on phones */
+@media(max-width:480px){
+  .shop-intro__copy{padding:3rem 1.1rem 2.5rem}
+  .shop-intro h1{font-size:clamp(2.8rem,11vw,3.8rem)!important}
+  .shop-intro p{font-size:.9rem}
+  .shop-intro__cta{width:100%;justify-content:center}
+}
+
+/* Shop promises: more compact on phones */
+@media(max-width:480px){
+  .shop-promises article{padding:.9rem 1rem}
+  .shop-promises strong{font-size:.74rem}
+  .shop-promises span{font-size:.68rem}
+}
+
+/* Filter tools: ensure no overflow */
+@media(max-width:480px){
+  .shop-mobile-tools{gap:.5rem}
+  #filterToggle{font-size:.65rem;padding:0 .75rem}
+}
+
+/* Sort wrap: hide label on very small screens */
+@media(max-width:380px){
+  .sort-wrap label{display:none}
+  .sort-select{min-height:44px}
+}
