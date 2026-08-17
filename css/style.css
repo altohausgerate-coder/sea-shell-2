@@ -3196,7 +3196,7 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
     align-items:stretch!important;
     width:100%!important;
     max-width:min(100%,300px)!important;
-    margin:1.6rem auto 0!important;
+    margin:2.8rem auto 0!important;
     gap:.75rem!important;
   }
   .hero__actions .btn{
