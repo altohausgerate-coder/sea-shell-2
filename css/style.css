@@ -3240,6 +3240,18 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
 }
 
 /* ============================================================
+   CIRCULAR GALLERY — FASTER SCROLL ON MOBILE
+   ============================================================ */
+/* Reduce section height so 720° rotation completes with less scrolling.
+   At 210vh on a 844px phone: only ~928px of travel needed (vs 2194px before) */
+@media(max-width:768px){
+  .circular-section{min-height:210vh!important}
+}
+@media(max-width:480px){
+  .circular-section{min-height:185vh!important}
+}
+
+/* ============================================================
    CIRCULAR GALLERY — MOBILE HEAD POLISH
    ============================================================ */
 @media(max-width:768px){
