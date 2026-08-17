@@ -26,13 +26,29 @@
   <meta name="author"  content="Seashell Official" />
   <meta name="keywords" content="Seashell Official, seashellofficial, seashellofficial.com, seashell azerbaijan, handmade mirrors, resin art baku" />
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD: WebSite (enables Google Sitelinks search) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Seashell Official",
+    "alternateName": "SeashellOfficial",
+    "url": "https://seashellofficial.com/",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://seashellofficial.com/shop.html?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Seashell Official",
-    "alternateName": "SeashellOfficial",
+    "alternateName": ["SeashellOfficial", "seashellofficial.com"],
     "url": "https://seashellofficial.com/",
     "logo": "https://seashellofficial.com/assets/logo-main.png",
     "description": "Seashell Official — official website. Discover more at seashellofficial.com.",
@@ -55,7 +71,38 @@
   }
   </script>
 
+  <!-- JSON-LD: LocalBusiness -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Seashell Official",
+    "image": "https://seashellofficial.com/assets/hero-shells-unsplash.jpg",
+    "url": "https://seashellofficial.com/",
+    "telephone": "+994508249023",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Xocalı pr. 32 (Xətai Residence)",
+      "addressLocality": "Baku",
+      "addressCountry": "AZ"
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "10:00",
+      "closes": "20:00"
+    },
+    "sameAs": [
+      "https://www.instagram.com/seashellazerbaijan/",
+      "https://www.facebook.com/seashellazerbaijan/"
+    ]
+  }
+  </script>
+
   <link rel="icon" href="assets/logo-main.png" />
+  <!-- Performance: preload critical assets -->
+  <link rel="preload" href="assets/hero-shells-unsplash.jpg" as="image" />
+  <link rel="preload" href="assets/logo-main.png" as="image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
