@@ -405,50 +405,52 @@
   .loc-contact-lines li:nth-child(2)::before{content:"📞";font-size:1rem}
   .loc-contact-lines li:nth-child(3)::before{content:"🕐";font-size:1rem}
 
-  /* ── Map field: balıqqabığı görünür, yığcam hündürlük ── */
+  /* ── Map field: overflow:visible → balıqqabığı + kartı hər ikisi görünür ── */
   .loc-map-field{
     position:relative!important;
-    height:260px!important;
+    height:280px!important;
     background:var(--sand)!important;
     border-radius:16px!important;
-    overflow:hidden!important;
+    overflow:visible!important;   /* kartın kəsilməməsi üçün */
     margin:0!important;
   }
   .loc-map-field::before{display:none!important}
-  /* Balıqqabığı mərkəzdə, tam görünür */
+
+  /* Balıqqabığı: mərkəzdə, tam görünür */
   .loc-shell{
     left:50%!important;
-    top:50%!important;
-    width:clamp(260px,80vw,400px)!important;
+    top:48%!important;
+    width:clamp(250px,78vw,380px)!important;
   }
-  .loc-pin{
-    left:50%!important;
-    top:50%!important;
-  }
-  /* SVG xətlər yüngül görsənsin */
-  .loc-map-svg{opacity:.25!important}
-  /* Etiketlər gizlənsin — kiçik ekranda sığmır */
+  .loc-pin{left:50%!important;top:50%!important}
+  .loc-map-svg{opacity:.18!important}
   .loc-map-label{display:none!important}
 
-  /* ── Action buttons: map-field-dən kənarda, tam görünür ── */
+  /* ── Butonu kart: map-field-in aşağısında, tam görünür ── */
+  /* loc-info-card HTML-də loc-map-field içindədir —
+     ona görə absolute + bottom:-Xpx ilə kənara çıxarırıq */
   .loc-info-card{
-    position:static!important;
-    left:auto!important;
+    position:absolute!important;
+    left:50%!important;
     top:auto!important;
-    transform:none!important;
-    width:100%!important;
+    bottom:-86px!important;
+    transform:translateX(-50%)!important;
+    width:calc(100% - 2.5rem)!important;
     min-width:0!important;
-    margin:0!important;
-    padding:1.1rem!important;
+    padding:1rem 1.1rem!important;
     background:var(--foam)!important;
     border:1px solid rgba(28,26,22,.1)!important;
-    box-shadow:0 4px 16px -6px rgba(28,26,22,.1)!important;
+    box-shadow:0 8px 28px -8px rgba(28,26,22,.14)!important;
     backdrop-filter:none!important;
     -webkit-backdrop-filter:none!important;
     border-radius:14px!important;
-    overflow:visible!important;
+    z-index:10!important;
   }
   .loc-info-card::before{display:none!important}
+
+  /* loc-roadmap-a alt boşluq əlavə et ki kart üst-üstə düşməsin */
+  .loc-roadmap{padding-bottom:110px!important}
+
   .loc-info-card__btns{
     display:grid!important;
     grid-template-columns:1fr 1fr!important;
