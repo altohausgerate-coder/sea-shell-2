@@ -981,13 +981,9 @@
   .shop-page .header,.shop-page .header.scrolled { top: 0; min-height: 72px; padding: .35rem 1.2rem; }
   .shop-page .brand { width: 106px; height: 64px; }
   .shop-page .brand__logo,.shop-page .header.scrolled .brand__logo { width: 106px; height: 106px; transform: translateY(-16px); }
-  .shop-intro { grid-template-columns: 1fr; min-height: 0; margin-top: 72px; }
-  .shop-intro__copy { min-height: 400px; padding: 3.5rem 1.25rem; }
-  .shop-intro h1 { max-width: 9ch; font-size: clamp(3.2rem, 13vw, 4.8rem); }
-  .shop-intro__image { min-height: 300px; max-height: 390px; object-position: 62% center; }
-  .shop-promises { grid-template-columns: 1fr; }
-  .shop-promises article { padding: 1.1rem 1.25rem; border-right: 0; border-bottom: 1px solid var(--sh-border); }
-  .shop-promises article:last-child { border-bottom: 0; }
+  /* Hide intro hero + promises on mobile */
+  .shop-intro { display: none; }
+  .shop-promises { display: none; }
   .shop-catalog-head { margin-bottom: 1.5rem; align-items: flex-start; }
   .shop-catalog-head h2 { font-size: clamp(2.7rem, 12vw, 4rem); }
   .shop-catalog-layout { grid-template-columns: 1fr; }
