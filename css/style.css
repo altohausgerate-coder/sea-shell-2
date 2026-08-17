@@ -3190,20 +3190,20 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
     color:rgba(250,248,243,.84)!important;
   }
 
-  /* Buttons: full-width, comfortable tap targets */
+  /* Buttons: full-width, airy gap from content above */
   .hero__actions{
     flex-direction:column!important;
     align-items:stretch!important;
     width:100%!important;
     max-width:min(100%,300px)!important;
-    margin:0 auto!important;
-    gap:.6rem!important;
+    margin:1.6rem auto 0!important;
+    gap:.75rem!important;
   }
   .hero__actions .btn{
     width:100%!important;
     justify-content:center;
-    min-height:54px;
-    padding:.95rem 1.8rem;
+    min-height:56px;
+    padding:1rem 1.8rem;
     font-size:.72rem;
     letter-spacing:.18em;
   }
