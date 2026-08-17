@@ -76,9 +76,26 @@
 
   function applyLang(code) {
     const dict = I18N[code] || I18N.en;
+    // Plain text translations
     document.querySelectorAll("[data-i18n]").forEach(el => {
       const key = el.getAttribute("data-i18n");
       if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    // HTML translations (for elements that contain <strong> etc.)
+    document.querySelectorAll("[data-i18n-html]").forEach(el => {
+      const key = el.getAttribute("data-i18n-html");
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    // Atelier caption data-attribute translations
+    document.querySelectorAll("[data-i18n-cap]").forEach(el => {
+      const key = el.getAttribute("data-i18n-cap");
+      if (dict[key] !== undefined) {
+        el.setAttribute("data-atelier-caption", dict[key]);
+        if (el.classList.contains("is-active")) {
+          const cap = document.getElementById("atelierCaption");
+          if (cap) cap.textContent = dict[key];
+        }
+      }
     });
     document.documentElement.lang = code;
     document.documentElement.setAttribute("data-lang", code);
