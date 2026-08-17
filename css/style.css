@@ -3116,3 +3116,184 @@ h1,h2,h3,h4{font-family:var(--sans);font-weight:300}
   .founder-about__text p{font-size:.88rem;line-height:1.8;max-width:100%}
   .founder-about__title{font-size:clamp(1.7rem,7.5vw,2.8rem)}
 }
+
+/* ============================================================
+   HERO — PROFESSIONAL MOBILE REDESIGN
+   (last wins — overrides all earlier hero mobile blocks)
+   ============================================================ */
+
+/* Cinematic overlay: enough contrast top + bottom */
+@media(max-width:768px){
+  .hero__overlay{
+    background:linear-gradient(
+      180deg,
+      rgba(12,9,6,.44) 0%,
+      rgba(12,9,6,.24) 28%,
+      rgba(12,9,6,.56) 65%,
+      rgba(12,9,6,.92) 100%
+    )!important;
+  }
+}
+
+/* Hero layout: centered, roomy */
+@media(max-width:768px){
+  .hero{
+    align-items:center!important;
+    text-align:center!important;
+    padding:clamp(5.5rem,20vh,8rem) var(--gutter) clamp(3.5rem,8vh,5rem)!important;
+  }
+
+  /* Content: proper vertical breathing */
+  .hero__content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:clamp(1rem,2.8vh,1.5rem)!important;
+    width:100%;
+  }
+
+  /* Eyebrow: frosted glass pill badge */
+  .hero__eyebrow{
+    display:inline-flex!important;
+    align-items:center;
+    gap:.3rem;
+    background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:100px;
+    padding:.42rem 1.05rem;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    font-size:.58rem!important;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:rgba(250,248,243,.95)!important;
+    margin-bottom:0;
+    white-space:nowrap;
+  }
+
+  /* Title: editorial, bold, 3-line composition */
+  .hero__title{
+    font-size:clamp(2.7rem,12.5vw,3.6rem)!important;
+    line-height:.96!important;
+    letter-spacing:-.03em;
+    margin:0;
+    text-shadow:0 12px 40px rgba(0,0,0,.45);
+  }
+  .hero__title .italic{color:rgba(220,205,185,1)}
+
+  /* Subtitle: easy to read */
+  .hero__sub{
+    font-size:.9rem!important;
+    line-height:1.62!important;
+    max-width:33ch;
+    margin:0 auto;
+    color:rgba(250,248,243,.84)!important;
+  }
+
+  /* Buttons: full-width, comfortable tap targets */
+  .hero__actions{
+    flex-direction:column!important;
+    align-items:stretch!important;
+    width:100%!important;
+    max-width:min(100%,300px)!important;
+    margin:0 auto!important;
+    gap:.6rem!important;
+  }
+  .hero__actions .btn{
+    width:100%!important;
+    justify-content:center;
+    min-height:54px;
+    padding:.95rem 1.8rem;
+    font-size:.72rem;
+    letter-spacing:.18em;
+  }
+  /* Primary CTA: cream-on-dark for max contrast on photo bg */
+  .hero__actions .btn:first-child:not(.btn--ghost):not(.btn--ghost-light){
+    background:rgba(250,248,243,.96);
+    color:var(--navy);
+    border-color:transparent;
+  }
+  .hero__actions .btn:first-child:not(.btn--ghost):not(.btn--ghost-light):hover{
+    background:var(--cream);
+    color:var(--navy);
+  }
+  /* Ghost light CTA: keep cream outline */
+  .hero__actions .btn--ghost-light{
+    border-color:rgba(250,248,243,.45);
+    color:rgba(250,248,243,.9);
+  }
+}
+
+/* Very small phones (≤ 400px — includes iPhone SE 375px, iPhone 14 393px) */
+@media(max-width:400px){
+  .hero__title{font-size:clamp(2.3rem,11vw,3rem)!important}
+  .hero__sub{max-width:28ch;font-size:.86rem!important}
+  .hero__actions{max-width:100%!important}
+  /* Allow eyebrow to wrap on very narrow screens */
+  .hero__eyebrow{
+    white-space:normal;
+    text-align:center;
+    padding:.38rem .85rem;
+    font-size:.56rem!important;
+    letter-spacing:.16em;
+  }
+}
+
+/* ============================================================
+   CIRCULAR GALLERY — MOBILE HEAD POLISH
+   ============================================================ */
+@media(max-width:768px){
+  .circular-section__head{
+    padding-inline:var(--gutter);
+    padding-top:clamp(3.5rem,7vw,5rem);
+    text-align:center;
+  }
+  .circular-section__head .eyebrow{
+    font-size:.58rem;
+    letter-spacing:.26em;
+  }
+  .circular-section__head h2{
+    font-size:clamp(1.9rem,8.5vw,2.6rem);
+    line-height:1.06;
+    margin:.45rem 0 .65rem;
+  }
+  .circular-section__head p{
+    font-size:.82rem;
+    color:var(--muted);
+    max-width:28ch;
+    margin:0 auto;
+    line-height:1.6;
+  }
+}
+
+/* ============================================================
+   FOUNDER / ABOUT — MOBILE FLOW
+   ============================================================ */
+@media(max-width:768px){
+  .founder-about__copy{
+    padding-inline:0;
+  }
+  .founder-about__eyebrow{
+    font-size:.58rem;
+    letter-spacing:.26em;
+  }
+  .founder-about__title{
+    font-size:clamp(1.8rem,7.5vw,2.8rem);
+    line-height:1.05;
+  }
+  .founder-about__text{
+    padding-left:1rem;
+  }
+  .founder-about__frame figcaption{
+    font-size:.54rem;
+    letter-spacing:.16em;
+  }
+  /* Stats row: better spacing on mobile */
+  .stats{
+    gap:1.6rem;
+    justify-content:center;
+    padding-top:.5rem;
+  }
+  .stat b{font-size:2.2rem}
+  .stat span{font-size:.72rem}
+}
